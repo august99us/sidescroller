@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctm6gitsk356k"]
+
+[ext_resource type="Script" path="res://tree.gd" id="1_qkmlx"]
+[ext_resource type="Texture2D" uid="uid://ctar76kt1aqn3" path="res://tree.png" id="2_qa2du"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_qkmlx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("2_qa2du")
+centered = false
+offset = Vector2(-195, -530)

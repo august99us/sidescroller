@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://d10dascfqytws"]
+
+[ext_resource type="Texture2D" uid="uid://c5u6hoeq07qto" path="res://chr_pawn_mage.png" id="1_gdedd"]
+[ext_resource type="Script" path="res://boss_arena.gd" id="1_h4yab"]
+[ext_resource type="Script" path="res://base_character.gd" id="2_cqdwu"]
+[ext_resource type="Script" path="res://ShakeCamera2D.gd" id="3_6rk6b"]
+[ext_resource type="PackedScene" uid="uid://ctblqjvuq8klh" path="res://base_interface.tscn" id="4_wdhgb"]
+[ext_resource type="PackedScene" uid="uid://dqvqkkknkfnev" path="res://boss.tscn" id="5_mq1nh"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cb3w8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e5cw"]
+size = Vector2(1937, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oq717"]
+size = Vector2(307, 50)
+
+[sub_resource type="Curve" id="Curve_osckh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.11178, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_insl7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_val7n"]
+radius = 24.0
+height = 110.0
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_h4yab")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(-42, -47)
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(7, 8, 1978, 30, 1974, 1133, -6, 1133)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(309, 979)
+physics_material_override = SubResource("PhysicsMaterial_cb3w8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(652.5, 97.5)
+shape = SubResource("RectangleShape2D_3e5cw")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionShape2D"]
+position = Vector2(13.5, 0.5)
+color = Color(0.494118, 0.25098, 0, 1)
+polygon = PackedVector2Array(-982, -29, -980, 29, 957, 24, 949, -27)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1402, 749)
+physics_material_override = SubResource("PhysicsMaterial_cb3w8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(153, 26)
+shape = SubResource("RectangleShape2D_oq717")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D2/CollisionShape2D"]
+position = Vector2(-732.5, 4)
+color = Color(0.494118, 0.25098, 0, 1)
+polygon = PackedVector2Array(582, -26, 582, 20, 882, 20, 882, -28)
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(-1298, 716)
+physics_material_override = SubResource("PhysicsMaterial_cb3w8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(1500.5, 83)
+shape = SubResource("RectangleShape2D_oq717")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D4/CollisionShape2D"]
+position = Vector2(-732.5, 4)
+color = Color(0.494118, 0.25098, 0, 1)
+polygon = PackedVector2Array(582, -26, 582, 20, 882, 20, 882, -28)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(1796, 118)
+height = 0.4
+
+[node name="Character" type="CharacterBody2D" parent="." groups=["players"]]
+position = Vector2(449, 795)
+script = ExtResource("2_cqdwu")
+JUMP_CURVE = SubResource("Curve_osckh")
+
+[node name="DefaultCamera" type="Camera2D" parent="Character" groups=["Cameras"]]
+zoom = Vector2(1.3, 1.3)
+position_smoothing_enabled = true
+script = ExtResource("3_6rk6b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character"]
+material = SubResource("CanvasItemMaterial_insl7")
+shape = SubResource("CapsuleShape2D_val7n")
+debug_color = Color(1, 1, 1, 1)
+
+[node name="ChrPawnMage" type="Sprite2D" parent="Character"]
+scale = Vector2(-1, 1)
+texture = ExtResource("1_gdedd")
+vframes = 2
+
+[node name="Boss" parent="." instance=ExtResource("5_mq1nh")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="base_interface" parent="CanvasLayer" instance=ExtResource("4_wdhgb")]
